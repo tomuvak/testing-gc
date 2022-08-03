@@ -14,6 +14,13 @@ fun local(key: String): String? = localProperties.getProperty(key)
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://maven.pkg.github.com/tomuvak/testing-gc-core")
+        credentials {
+            username = local("githubUser")
+            password = local("githubToken")
+        }
+    }
 }
 
 kotlin {
@@ -31,6 +38,11 @@ kotlin {
             commonWebpackConfig {
                 cssSupport.enabled = true
             }
+            testTask {
+                useMocha {
+                    timeout = "12s"
+                }
+            }
         }
     }
     val hostOs = System.getProperty("os.name")
@@ -43,10 +55,17 @@ kotlin {
     }
 
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation("com.tomuvak.weak-reference:weak-reference:0.0.2")
+                implementation("com.tomuvak.testing-gc-core:testing-gc-core:0.0.3")
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
+                implementation("com.tomuvak.testing-coroutines:testing-coroutines:0.0.1")
             }
         }
         val jvmMain by getting
