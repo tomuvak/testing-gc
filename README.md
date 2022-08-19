@@ -69,12 +69,13 @@ inside the `sourceSet { ... }` block, e.g.
 ```kotlin
         val commonTest by getting {
             dependencies {
-                implementation("com.tomuvak.testing-gc:testing-gc:0.0.3")
+                implementation("com.tomuvak.testing-gc:testing-gc:<version>")
             }
         }
 ```
 
-to add it for the test source sets on all platforms in a multi-platform project.
+([![Latest release version][v]](https://github.com/tomuvak/testing-gc/tags)) to add it for the test source sets on
+all platforms in a multi-platform project.
 
 Note about credentials: it seems that even though this repository is public and everyone can download this library from
 GitHub Packages, one still needs to supply credentials for some reason. Any GitHub user should work, when provided with
@@ -162,6 +163,7 @@ kotlin {
 .
 ```
 
+[v]: https://img.shields.io/github/v/tag/tomuvak/testing-gc?label=Latest%20release%20version%20%28ignoring%20the%20initial%20%27v%27%29%3A&style=plastic
 [1]: https://github.com/tomuvak/testing-gc-core
 [2]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
 [3]: https://github.com/tomuvak/testing-coroutines#using-the-functionality-in-code
