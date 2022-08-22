@@ -1,4 +1,8 @@
 # `com.tomuvak.testing-gc` – a multi-platform Kotlin library with utilities for tests relying on garbage collection
+[![Licence][1]][2]
+[![Latest release version][3]][4]
+[![Build and tests status][5]][6]
+
 This library is licensed under the [MIT License](https://en.wikipedia.org/wiki/MIT_License);
 see [LICENSE.txt](LICENSE.txt).
 
@@ -36,8 +40,8 @@ This library tries to offer some remedy, by providing utilities which (at least 
 the releasing of memory and (at least to some extent) are exposed with a unified interface that allows users of the
 library to write a single version of their tests which can then run cross-platform.
 
-### Vis-à-vis [`com.tomuvak.testing-gc-core`][1]
-The sister library [`com.tomuvak.testing-gc-core`][1] contains _primitive_ utilities, which can be used to trigger
+### Vis-à-vis [`com.tomuvak.testing-gc-core`][7]
+The sister library [`com.tomuvak.testing-gc-core`][7] contains _primitive_ utilities, which can be used to trigger
 garbage collection, but no mechanism on top of that to help verify any desired effects of garbage collection have
 actually taken place.
 
@@ -105,14 +109,14 @@ githubToken=<personal access token for the user above, with the `read:packages` 
   above, it's possible there'll be hidden references preventing objects from being reclaimed. Diagnosing such cases
   might not be trivial. Extracting the generation of the objects which are to be reclaimed to other functions (this is
   part of the motivation for the function `generateSequenceAndWeakReferences`).
-* While [`com.tomuvak.testing-gc-core`][1] provides (also) a way to trigger garbage collection directly and
+* While [`com.tomuvak.testing-gc-core`][7] provides (also) a way to trigger garbage collection directly and
   synchronously _on platforms which support that_ (notably excluding JS), and while some of the functionality provided
   by this library can be combined with that for code which only targets such platforms, the main functionality this
   library provides uses `testing-gc-core` functionality which works (or strives to work) cross-platform, but is
   _potentially asynchronous_, and can only be called from a coroutine. That means that code using it must be written
-  accordingly, e.g. by using [`kotlinx.coroutines.runBlocking`][2] (not supported on JS) or some other mechanism (the
+  accordingly, e.g. by using [`kotlinx.coroutines.runBlocking`][8] (not supported on JS) or some other mechanism (the
   sister library [`com.tomuvak.testing-coroutines`](https://github.com/tomuvak/testing-coroutines) provides the
-  [`asyncTest`][3] function for that).
+  [`asyncTest`][9] function for that).
 * Where garbage collection cannot be triggered directly (= on JS), the mechanism which tries to trigger it uses a
   memory-intensive computation, which might also take longer time to run than a typical test might be expected to take.
   This means longer times for running tests should be taken into account, and also that with default configuration some
@@ -163,7 +167,13 @@ kotlin {
 .
 ```
 
-[v]: https://img.shields.io/github/v/tag/tomuvak/testing-gc?label=Latest%20release%20version%20%28ignoring%20the%20initial%20%27v%27%29%3A&style=plastic
-[1]: https://github.com/tomuvak/testing-gc-core
-[2]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
-[3]: https://github.com/tomuvak/testing-coroutines#using-the-functionality-in-code
+[1]: https://img.shields.io/github/license/tomuvak/testing-gc?label=Licence
+[2]: LICENSE.txt
+[3]: https://img.shields.io/github/v/tag/tomuvak/testing-gc?label=Latest%20release
+[3_]: https://img.shields.io/github/v/tag/tomuvak/testing-gc?label=Latest%20release%20version%20%28ignoring%20the%20initial%20%27v%27%29%3A&style=plastic
+[4]: https://github.com/tomuvak/testing-gc/tags
+[5]: https://github.com/tomuvak/testing-gc/actions/workflows/check-on-push.yaml/badge.svg
+[6]: https://github.com/tomuvak/testing-gc/actions/workflows/check-on-push.yaml
+[7]: https://github.com/tomuvak/testing-gc-core
+[8]: https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/run-blocking.html
+[9]: https://github.com/tomuvak/testing-coroutines#using-the-functionality-in-code
